@@ -12,3 +12,18 @@ stock = null;
 stock = undefined;
 
 console.log(typeof stock);
+
+/*
+  cammelCase
+  snake_case
+  PaskalCase
+  kebab-case
+*/
+
+// Template string!
+const templateProducto = `
+Producto: Zapatillas "Air Jordan"
+Precio: 189.99
+Stock: 12`;
+
+console.log(templateProducto);
