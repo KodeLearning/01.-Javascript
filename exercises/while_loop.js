@@ -15,6 +15,11 @@ while (true) {
   let choice = prompt('¿Piedra, papel o tijera?')
   choice = choice.toLowerCase()
 
+  if (choice === 'salir') {
+    console.log('Ciao :(')
+    break
+  }
+
   console.clear()
   if (choice === 'piedra') {
     console.log('CPU sacó piedra!\n¡Empate!')
@@ -22,9 +27,6 @@ while (true) {
     console.log('CPU sacó piedra!\n¡Has ganado!')
   } else if (choice === 'tijera') {
     console.log('CPU sacó piedra\n¡Has perdido!')
-  } else if (choice === 'salir') {
-    console.log('Ciao :(')
-    break
   } else {
     console.log('Opción incorrecta')
   }
