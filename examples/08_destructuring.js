@@ -44,3 +44,49 @@ for (const keyAndValue of Object.entries(twilight)) {
   console.log(keyAndValue)
 }
 console.clear()
+
+const user = {
+  role: 'ADMIN',
+  username: 'keepcoding',
+  courses: ['nodejs', 'html'],
+}
+
+// Muta el objeto por lo que user tambien es igual a studentUser
+// - const studentUser = user
+
+/**
+ * Forma correcta para clonar sin modificar el objeto inicial
+ * Hace copia profunda, método más seguro pero hay que
+ * vigilar compatibilidades
+ **/
+//  -- const studentUser = structuredClone(user)
+
+/**
+ * Forma algo más peligrosa de clonar sin destruir el objeto inicial
+ * Destruye undefined y funciones
+ **/
+// -- const studentUser = JSON.parse(JSON.stringify(user))
+
+/**
+ * (SPREAD) Método más común
+ * No clona más allá del primer nivel
+ **/
+const studentUser = { ...user } /// Object.assign({}, user) # Versión antigua
+
+studentUser.role = 'STUDENT'
+studentUser.username = 'David'
+console.log(studentUser)
+
+console.log(user)
+
+if (user.role === 'ADMIN' && user.username === 'keepcoding') {
+  console.log('Empecemos curso')
+} else {
+  console.log('No hay admin')
+}
+
+const booksNoHungerGames = [...books] /// [].concat(books) # Versión antigua
+
+booksNoHungerGames.pop()
+console.log(books)
+console.log(booksNoHungerGames)
