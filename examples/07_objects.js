@@ -44,5 +44,8 @@ console.log(car[keyId])
 
 car.title = 'Jaguar'
 car.year = 1970
+car.title = car.title.toUpperCase()
+
+delete car.year
 
 console.log(car)
