@@ -65,6 +65,9 @@ const shows = [
     id: 2,
     name: 'Game of thrones',
     genres: ['Drama', 'Thriller'],
+    seasons: {
+      title: 'Season 1',
+    },
   },
 ]
 
@@ -99,3 +102,15 @@ console.log(`Keys: ${Object.keys(shows[0])}`)
 console.log(`Values: ${Object.values(shows[0])}`)
 
 console.log('Entries: ', Object.entries(shows[1]))
+
+console.clear()
+for (let key in shows[1]) {
+  console.log(key)
+  const value = shows[1][key]
+  console.log(value)
+  if (key === 'name') {
+    shows[1][key] = '***'
+  }
+}
+
+console.log(shows)
