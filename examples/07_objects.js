@@ -94,3 +94,8 @@ console.log(newShowsArray)
 car.year = undefined
 
 console.log(JSON.parse(JSON.stringify(car)))
+
+console.log(`Keys: ${Object.keys(shows[0])}`)
+console.log(`Values: ${Object.values(shows[0])}`)
+
+console.log('Entries: ', Object.entries(shows[1]))
