@@ -82,3 +82,15 @@ for (let i = 0; i < shows.length; i++) {
 
 // Renderizar
 document.write(showTemplate)
+
+// Object.keys, Object.values, Object.entries, for..in, JSON.
+const stringValue = JSON.stringify(shows)
+const showsCopy = shows
+console.log(showsCopy === shows)
+console.log(shows)
+const newShowsArray = JSON.parse(stringValue)
+console.log(newShowsArray)
+
+car.year = undefined
+
+console.log(JSON.parse(JSON.stringify(car)))
