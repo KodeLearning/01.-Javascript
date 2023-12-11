@@ -48,4 +48,10 @@ car.title = car.title.toUpperCase()
 
 delete car.year
 
+const removeKeys = ['year', 'title']
+for (let index = 0; index < removeKeys.length; index++) {
+  const keyToRemove = removeKeys[index]
+  delete car[keyToRemove]
+}
+
 console.log(car)
