@@ -24,3 +24,20 @@ const fordMustang = {
 const cars = [fordMustang]
 
 console.log(cars)
+
+const key = 'year'
+
+console.log(fordMustang[key])
+console.clear()
+
+const keyId = 'newKey'
+
+const car = {
+  title: 'Toyota',
+  year: 1990,
+  //newKey: 12,
+  [keyId]: 12,
+}
+
+console.log(car)
+console.log(car[keyId])
