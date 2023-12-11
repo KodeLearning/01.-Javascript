@@ -41,3 +41,8 @@ const car = {
 
 console.log(car)
 console.log(car[keyId])
+
+car.title = 'Jaguar'
+car.year = 1970
+
+console.log(car)
