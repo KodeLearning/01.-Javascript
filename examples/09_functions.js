@@ -152,3 +152,13 @@ counterBreak.increment()
 console.log(counterBreak.count)
 
 const counterNextClass = counter()
+
+// Pasar como parametro una función
+const realizarOperacion = (num1, num2, operacion) => {
+  return operacion(num1, num2)
+}
+
+const add = (num1, num2) => num1 + num2
+const dividir = (num1, num2) => num1 / num2
+
+realizarOperacion(5, 2, add)
