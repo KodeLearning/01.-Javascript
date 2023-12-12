@@ -60,7 +60,7 @@ const numbers = [1, 2, 3, 4, 5, 6]
 const double = []
 
 // Modifica la lista que recibe, no es correcto.
-const doubleListV1 = (list) => {
+/*const doubleListV1 = (list) => {
   for (const element of list) {
     list.push(element * 2)
   }
@@ -78,4 +78,27 @@ const doubleListV2 = (list) => {
 }
 
 double = doubleListV2(numbers)
-console.log(double)
+console.log(double)*/
+console.clear()
+
+const foo = (number) => number * 2
+const newArrayUpd = numbers.map(foo)
+const newArrayOg = numbers.map((number) => number * 2)
+console.clear()
+console.log(newArrayOg)
+console.log(numbers)
+
+const filter45 = (arr) => {
+  const newList = []
+  for (const element of arr) {
+    if (element !== 45) newList.push(element)
+  }
+
+  return newList
+}
+
+const newList = numbers.filter((number) => number != 4)
+
+console.clear()
+console.log(filter45(newList))
+console.log(numbers)
