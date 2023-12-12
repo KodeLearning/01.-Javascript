@@ -102,3 +102,44 @@ const newList = numbers.filter((number) => number != 4)
 console.clear()
 console.log(filter45(newList))
 console.log(numbers)
+console.clear()
+
+/** 
+const nums = [1, 2, 33, 41, 5, 60, 74, 87, 90, 101, null, '', false]
+
+ const classifyNumbers = (items) => {
+  const evenNumbers = [];
+  const oddNumbers = [];
+
+  for (let i = 0; i < items.length; i++) {
+    current = items[i];
+    if (typeof current === "number") {
+      if (current % 2 === 0) {
+        evenNumbers.push(current);
+      } else {
+        oddNumbers.push(current);
+      }
+    }
+  }
+
+  return { evenNumbers, oddNumbers };
+};
+
+console.log(classifyNumbers(nums));
+**/
+
+const nums = [1, 2, 33, 41, 5, 60, 74, 87, 90, 101, null, '', false]
+
+const classifyNumbers = (items) => {
+  isEven = (item) => typeof item === 'number' && item % 2 === 0
+
+  const evenNumbers = items.filter((item) => isEven(item))
+  const oddNumbers = items.filter((item) => {
+    return !isEven(item)
+  })
+
+  return { evenNumbers, oddNumbers }
+}
+
+console.log(classifyNumbers(nums))
+console.log()
