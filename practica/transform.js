@@ -1,4 +1,10 @@
 /**
+ * Nuestro cliente tiene un array de datos y nos a pedido que saquemos la siguiente
+ * información. El listado de los desarrolladores que tengan como habilidad “JavaScript” y el
+ * listado de los proyectos en el que sus desarrolladores trabajan
+ **/
+
+/**
  * const desarrolladoresJavascript = [
  *  {
  *    "id": 1,
