@@ -142,4 +142,4 @@ const classifyNumbers = (items) => {
 }
 
 console.log(classifyNumbers(nums))
-console.log()
+console.clear()
