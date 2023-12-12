@@ -52,3 +52,35 @@ const evenOrOdd = (numList, numType = 'even') => {
 }
 
 console.log(evenOrOdd(numsData, 'both'))
+console.clear()
+
+/**
+ *
+ * SEGUNDO EJERCICIO
+ *
+ */
+
+const calculadora = () => {
+  let current = 0
+  const sumar = (num) => (current = current + num)
+  const restar = (num) => (current = current - num)
+  const multiplicar = (num) => (current = current * num)
+  const dividir = (num) => (current = current / num)
+  const total = () => current
+
+  return {
+    sumar,
+    restar,
+    multiplicar,
+    dividir,
+    total,
+  }
+}
+
+const miCalculadora = calculadora()
+console.log(miCalculadora.sumar(5))
+console.log(miCalculadora.restar(2))
+console.log(miCalculadora.multiplicar(4))
+console.log(miCalculadora.dividir(2))
+console.log(miCalculadora.sumar(10))
+console.log(miCalculadora.total())
