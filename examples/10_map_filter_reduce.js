@@ -112,6 +112,10 @@ if (element !== undefined) {
   console.log(element)
 }
 
+/**
+ * FOREACH
+ * Un bucle común que itera sobre la lista.
+ */
 numbers.forEach((item) => {
   console.log(item)
   return 'Hola'
@@ -166,3 +170,11 @@ const getTransaction = (list, id) => {
 }
 
 console.log(getTransaction(transactions, 'trx001'))
+
+const transactionMapped = transactions.reduce((acum, item) => {
+  const transactionList = acum[item.id] ? acum[item.id] : []
+  return {
+    ...acum,
+    [item.id]: [...transactionList, item],
+  }
+}, {})
