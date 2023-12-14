@@ -178,3 +178,5 @@ const transactionMapped = transactions.reduce((acum, item) => {
     [item.id]: [...transactionList, item],
   }
 }, {})
+console.clear()
+console.log(transactionMapped)
