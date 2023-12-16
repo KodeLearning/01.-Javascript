@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Práctica JavaScript :: Proyecto - Simulación de Wimblecode</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div>
+      <h1>Funcionamiento del torneo y el deporte Wimblecode.</h1>
+      <ol>
+        <li>
+          <strong>¿Como se gana un torneo?</strong> Si un jugador gana un
+          partido, avanza y se enfrenta al siguiente jugador que ganó su
+          partido. En la imagen se puede ver que el ganador del torneo fue
+          Javier M.
+        </li>
+        <li>
+          <strong>¿Como se gana un partido?</strong> Cada partido tiene juegos,
+          el primero que gane 2 es el ganador del partido.
+        </li>
+        <li>
+          <strong>¿Como se gana un juego?</strong> Para ganar un juego, el
+          jugador tiene que cumplir estos requisitos:
+        </li>
+        <ul>
+          <li>Debe ganar 4 rondas.</li>
+          <li>
+            Para que un juego se considere como victoria, debe tener una
+            diferencia de 2 con respecto al otro jugador cuando llegue a 4. Es
+            decir, si el jugador 1 tiene 4 rondas ganadas y el jugador 2 tiene
+            3, el jugador 1 aún no es considerado ganador. Tendría que ganar una
+            quinta ronda.
+          </li>
+          <li>El máximo de rondas es 7, en caso de un partido muy reñido.</li>
+        </ul>
+        <li>
+          <strong>¿Como se gana una ronda?</strong> El sistema de puntuación es
+          el siguiente:
+        </li>
+        <ul>
+          <li>
+            Cada jugador puede tener alguno de estos puntos en un juego: 0, 15,
+            30, 40. Cada vez que un jugador se lleva un punto, la puntuación
+            aumenta en este orden: 0 -> 15 -> 30 -> 40 -> Ganas*.
+          </li>
+
+          <li>
+            Si tienes 40 y ganas la siguiente tirada, ganas la ronda, pero hay
+            reglas especiales:
+          </li>
+        </ul>
+        <li>
+          Si ambos tienen 40 puntos, los jugadores están en "deuce" (empate).
+        </li>
+        <li>
+          Si el juego está en "deuce", el ganador de un punto obtendrá ventaja y
+          si gana el siguiente punto ganaría la ronda.
+        </li>
+        <li>Si el jugador con ventaja gana la pelota, gana la ronda.</li>
+        <li>Si el jugador sin ventaja gana, vuelven a estar en "deuce".</li>
+      </ol>
+
+      Wimblecode se parece a otro deporte llamado tenis pero
+      <strong
+        >no es igual, no confundir y seguir las reglas mencionadas
+        anteriormente. Ya que hay diferencias.</strong
+      >
+    </div>
+  </body>
+</html>
