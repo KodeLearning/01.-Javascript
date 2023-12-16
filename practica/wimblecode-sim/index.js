@@ -5,8 +5,8 @@ const wimblecode = () => {
   const createMatch = (player1, player2) => {
     players = {
       g1: {
-        player1: { name: player1, points: 0 },
-        player2: { name: player2, points: 0 },
+        player1: { name: player1, points: 0, rounds: 0 },
+        player2: { name: player2, points: 0, rounds: 0 },
       },
     }
     console.log(players)
