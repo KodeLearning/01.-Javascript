@@ -22,7 +22,7 @@ const wimblecode = () => {
     return players
   }
 
-  const pointWonBy = (playerName) => {
+  const pointWonBy = (playerName, game = 'next') => {
     const actualPlayers = players[0].game1
     for (const key in actualPlayers) {
       if (actualPlayers[key] && playerName === actualPlayers[key].name) {
@@ -33,6 +33,10 @@ const wimblecode = () => {
         } else if (actualPlayers[key].points >= 40 && actualPlayers[key].points < 44) {
           actualPlayers[key].points += 1
         } else if (actualPlayers[key].points === 44) {
+          actualPlayers[key].points = 0
+          actualPlayers[key].rounds += 1
+          console.log(actualPlayers)
+        } else if (actualPlayers[key].rounds === 2) {
           actualPlayers.winner = playerName
         }
       }
@@ -52,6 +56,7 @@ const wimblecode = () => {
 const game = wimblecode()
 
 console.log(game.createMatch('David', 'Ali'))
+game.pointWonBy('David')
 game.pointWonBy('David')
 game.pointWonBy('David')
 game.pointWonBy('David')
