@@ -1,19 +1,40 @@
+let players = []
 const wimblecode = () => {
-  let players = {}
   let winners = {}
+  let gameNumber = ''
 
   const createMatch = (player1, player2) => {
-    players = {
-      g1: {
+    if(players.length ===0) {
+      gameNumber = 'game1'
+    } else {
+      gameNumber = 'game' + String(players.length + 2)
+    }
+    for (const game in players[0]) {
+      console.log('Games:', game)
+    }
+    players = [{
+      [gameNumber]: {
         player1: { name: player1, points: 0, rounds: 0 },
         player2: { name: player2, points: 0, rounds: 0 },
+        winner: null
       },
-    }
-    console.log(players)
+      game2: {
+        player3: { name: player1, points: 0, rounds: 0 },
+        player4: { name: player2, points: 0, rounds: 0 },
+        winner: null
+      }
+    }]
     return players
   }
 
-  const pointWonBy = (playerId) => {}
+  const pointWonBy = (playerName) => {
+    const actualPlayers = players.g1
+    for (const key in actualPlayers) {
+      if(playerName === actualPlayers[key].name) {
+        actualPlayers[key].points += 15
+      }
+    }
+  }
   const getCurrentRoundScore = () => {}
   const getRoundsScore = () => {}
 
@@ -28,3 +49,6 @@ const wimblecode = () => {
 const game = wimblecode()
 
 console.log(game.createMatch('David', 'Ali'))
+game.pointWonBy('David')
+console.log(players)
+console.log(game.createMatch('Jonny', 'Uri'))
