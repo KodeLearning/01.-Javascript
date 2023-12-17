@@ -4,34 +4,37 @@ const wimblecode = () => {
   let gameNumber = ''
 
   const createMatch = (player1, player2) => {
-    if(players.length ===0) {
+    if (players.length === 0) {
       gameNumber = 'game1'
     } else {
-      gameNumber = 'game' + String(players.length + 2)
+      gameNumber = 'game' + String(players.length + 1)
     }
-    for (const game in players[0]) {
-      console.log('Games:', game)
-    }
-    players = [{
-      [gameNumber]: {
-        player1: { name: player1, points: 0, rounds: 0 },
-        player2: { name: player2, points: 0, rounds: 0 },
-        winner: null
+    players = [
+      {
+        ...players[0],
+        [gameNumber]: {
+          player1: { name: player1, points: 0, rounds: 0 },
+          player2: { name: player2, points: 0, rounds: 0 },
+          winner: null,
+        },
       },
-      game2: {
-        player3: { name: player1, points: 0, rounds: 0 },
-        player4: { name: player2, points: 0, rounds: 0 },
-        winner: null
-      }
-    }]
+    ]
     return players
   }
 
   const pointWonBy = (playerName) => {
-    const actualPlayers = players.g1
+    const actualPlayers = players[0].game1
     for (const key in actualPlayers) {
-      if(playerName === actualPlayers[key].name) {
-        actualPlayers[key].points += 15
+      if (actualPlayers[key] && playerName === actualPlayers[key].name) {
+        if (actualPlayers[key].points < 30) {
+          actualPlayers[key].points += 15
+        } else if (actualPlayers[key].points === 30) {
+          actualPlayers[key].points += 10
+        } else if (actualPlayers[key].points >= 40 && actualPlayers[key].points < 44) {
+          actualPlayers[key].points += 1
+        } else if (actualPlayers[key].points === 44) {
+          actualPlayers.winner = playerName
+        }
       }
     }
   }
@@ -50,5 +53,10 @@ const game = wimblecode()
 
 console.log(game.createMatch('David', 'Ali'))
 game.pointWonBy('David')
-console.log(players)
-console.log(game.createMatch('Jonny', 'Uri'))
+game.pointWonBy('David')
+game.pointWonBy('David')
+game.pointWonBy('David')
+game.pointWonBy('David')
+game.pointWonBy('David')
+game.pointWonBy('David')
+game.pointWonBy('David')
