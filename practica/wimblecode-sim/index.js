@@ -7,7 +7,7 @@ const wimblecode = () => {
     if (players.length === 0) {
       gameNumber = 'game1'
     } else {
-      gameNumber = 'game' + String(players.length + 1)
+      gameNumber = 'game' + String(Object.keys(players[0]).length + 1)
     }
     players = [
       {
@@ -23,21 +23,30 @@ const wimblecode = () => {
   }
 
   const pointWonBy = (playerName, game = 'next') => {
-    const actualPlayers = players[0].game1
+    let actualPlayers = {}
+    if (game !== 'next') {
+      actualPlayers = players[0][game]
+      console.log('A', actualPlayers)
+    } else {
+      const keys = Object.keys(players[0])
+      actualPlayers = keys[keys.length - 1]
+    }
+
     for (const key in actualPlayers) {
       if (actualPlayers[key] && playerName === actualPlayers[key].name) {
-        if (actualPlayers[key].points < 30) {
-          actualPlayers[key].points += 15
-        } else if (actualPlayers[key].points === 30) {
-          actualPlayers[key].points += 10
-        } else if (actualPlayers[key].points >= 40 && actualPlayers[key].points < 44) {
-          actualPlayers[key].points += 1
-        } else if (actualPlayers[key].points === 44) {
-          actualPlayers[key].points = 0
-          actualPlayers[key].rounds += 1
-          console.log(actualPlayers)
-        } else if (actualPlayers[key].rounds === 2) {
+        if (actualPlayers[key].rounds === 2) {
           actualPlayers.winner = playerName
+        } else {
+          if (actualPlayers[key].points < 30) {
+            actualPlayers[key].points += 15
+          } else if (actualPlayers[key].points === 30) {
+            actualPlayers[key].points += 10
+          } else if (actualPlayers[key].points >= 40 && actualPlayers[key].points < 44) {
+            actualPlayers[key].points += 1
+          } else if (actualPlayers[key].points === 44) {
+            actualPlayers[key].points = 0
+            actualPlayers[key].rounds += 1
+          }
         }
       }
     }
@@ -56,12 +65,20 @@ const wimblecode = () => {
 const game = wimblecode()
 
 console.log(game.createMatch('David', 'Ali'))
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
-game.pointWonBy('David')
+game.pointWonBy('David', 'game1') // 15
+game.pointWonBy('David', 'game1') // 30
+game.pointWonBy('David', 'game1') // 40
+game.pointWonBy('David', 'game1') // 41 | Debería ganar
+game.pointWonBy('David', 'game1') // 42
+game.pointWonBy('David', 'game1') // 43
+game.pointWonBy('David', 'game1') // 44
+game.pointWonBy('David', 'game1') // 15 | 1 ronda
+game.pointWonBy('David', 'game1') // 30
+game.pointWonBy('David', 'game1') // 40
+game.pointWonBy('David', 'game1') // 41
+game.pointWonBy('David', 'game1') // 42
+game.pointWonBy('David', 'game1') // 43
+game.pointWonBy('David', 'game1') // 44
+game.pointWonBy('David', 'game1') //
+game.pointWonBy('David', 'game1') //
+game.pointWonBy('David', 'game1') //
