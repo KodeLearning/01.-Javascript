@@ -51,8 +51,50 @@ const wimblecode = () => {
       }
     }
   }
-  const getCurrentRoundScore = () => {}
-  const getRoundsScore = () => {}
+
+  /**
+   * La función debería llamarse "getCurrentPointsScore".
+   * Según entiendo, el objetivo de esta función es mostrar
+   * la puntuación actual del partido, que hayan 2 funciones
+   * con el mismo nombre me lo ha hecho un poco lioso.
+   *
+   * Esta función debe mostrar la puntuación o deuce/advantage en caso
+   * de estar en empate.
+   */
+  const getCurrentRoundScore = () => {
+    for (const player of players) {
+      const gameNumbers = Object.keys(player)
+
+      for (const gameNumber of gameNumbers) {
+        const selectedGame = player[gameNumber]
+        console.log(selectedGame)
+        if (selectedGame.winner === null) {
+          return player[gameNumber]
+        }
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * Esta función pretende mostrar cuantas rondas ha ganado
+   * cada jugador del último partido sin ganador.
+   */
+  const getRoundsScore = () => {
+    const currentGame = getCurrentRoundScore()
+
+    return (
+      currentGame.player1.name +
+      ' ' +
+      String(currentGame.player1.rounds) +
+      ' - ' +
+      currentGame.player2.name +
+      ' ' +
+      String(currentGame.player2.rounds)
+    )
+    console.log(currentGame)
+  }
 
   return {
     createMatch, // Inicializa dos jugadores que van a competir
@@ -82,3 +124,7 @@ game.pointWonBy('David', 'game1') // 44
 game.pointWonBy('David', 'game1') //
 game.pointWonBy('David', 'game1') //
 game.pointWonBy('David', 'game1') //
+console.log(game.createMatch('Jonny', 'Uri'))
+game.pointWonBy('Uri', 'game2') //
+console.log(game.getCurrentRoundScore())
+console.log(game.getRoundsScore())
