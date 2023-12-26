@@ -1,6 +1,6 @@
 # Modulo de introducción a JavaScript
-Teoría y apuntes: [Acceder](https://github.com/KodeLearning/01.-Javascript/tree/main/examples)
-Ejercicios: [Acceder](https://github.com/KodeLearning/01.-Javascript/tree/main/exercises)
+- Teoría y apuntes: [Acceder](https://github.com/KodeLearning/01.-Javascript/tree/main/examples)
+- Ejercicios: [Acceder](https://github.com/KodeLearning/01.-Javascript/tree/main/exercises)
 
 # Práctica y proyecto
 Archivos y carpetas de acceso a los ejercicios de la práctica
