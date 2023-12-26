@@ -36,6 +36,19 @@ const wimblecode = () => {
     return players
   }
 
+  const checkVictory = (games, currentGame) => {
+    let victory = false
+    const diffRounds = games[currentGame].player2.rounds - games[currentGame].player1.rounds
+
+    if ((games[currentGame].player2.rounds >= 4 && diffRounds >= 2) || games[currentGame].player2.rounds === 7) {
+      games[currentGame].player2.status = playerStatus.WINNER
+      games[currentGame].player1.status = playerStatus.LOSER
+      games[currentGame].status = gameStatus.FINISHED
+      victory = true
+    }
+    return victory
+  }
+
   /**
    * ! Esta función se encarga de dar puntos a un jugador pero:
    * ! 1. Esta gestionando victorias
@@ -145,9 +158,8 @@ const wimblecode = () => {
           games[currentGame].player2.rounds += 1
           games[currentGame].player2.points = 0
           games[currentGame].player1.points = 0
-          /*games[currentGame].player2.status = playerStatus.WINNER
-          games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         } else {
           games[currentGame].player2.status = playerStatus.DEUCE
         }
@@ -157,9 +169,8 @@ const wimblecode = () => {
           games[currentGame].player2.rounds += 1
           games[currentGame].player2.points = 0
           games[currentGame].player1.points = 0
-          /*games[currentGame].player2.status = playerStatus.WINNER
-          games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         } else if (games[currentGame].player1.points === 40) {
           games[currentGame].player2.points += 1
           games[currentGame].player2.status = playerStatus.ADVANTAGE
@@ -179,9 +190,8 @@ const wimblecode = () => {
           games[currentGame].player2.rounds += 1
           games[currentGame].player2.points = 0
           games[currentGame].player1.points = 0
-          /*games[currentGame].player2.status = playerStatus.WINNER
-          games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         }
         if (
           games[currentGame].player2.points > games[currentGame].player1.points &&
@@ -194,13 +204,12 @@ const wimblecode = () => {
           games[currentGame].player2.rounds += 1
           games[currentGame].player2.points = 0
           games[currentGame].player1.points = 0
-          /*games[currentGame].player2.status = playerStatus.WINNER
-          games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          console.log(checkVictory(games, currentGame))
         }
       }
     } else {
-      return new Error('Ese jugador no esta participando.')
+      return new Error(playerName + ' no esta participando.')
     }
 
     return games[currentGame]
@@ -213,6 +222,8 @@ const wimblecode = () => {
       if (games[game].status === 'started') {
         currentRoundScore =
           games[game].player1.name + ' ' + games[game].player1.points + ' - ' + games[game].player2.points + ' ' + games[game].player2.name
+      } else {
+        currentRoundScore = 'No hay partidos iniciados.'
       }
     }
 
@@ -245,8 +256,17 @@ try {
   game.createMatch('Player 3', 'Player 4')
   console.log(game.pointWonBy('Player 2'))
   console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 1'))
   console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 3'))
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
