@@ -171,7 +171,24 @@ const wimblecode = () => {
     return games[currentGame]
   }
 
-  const getCurrentRoundScore = () => {}
+  const getCurrentRoundScore = () => {
+    const games = players[0]
+    let currentRoundScore
+    for (const game in games) {
+      if (games[game].status === 'started') {
+        currentRoundScore =
+          games[game].player1.name +
+          ' ' +
+          games[game].player1.points +
+          ' - ' +
+          games[game].player2.points +
+          ' ' +
+          games[game].player2.name
+      }
+    }
+
+    return currentRoundScore
+  }
   const getRoundsScore = () => {}
 
   return {
@@ -194,6 +211,7 @@ try {
   console.log(game.pointWonBy('Player 3'))
   game.createMatch('Player 2', 'Player 3')
   console.log(game.pointWonBy('Player 3'))
+  console.log('currentRoundScore', game.getCurrentRoundScore())
 } catch (e) {
   console.log(e)
 }
