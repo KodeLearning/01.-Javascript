@@ -73,7 +73,6 @@ const wimblecode = () => {
       games[currentGame].status = gameStatus.STARTED
     } else if (games[currentGame].status === gameStatus.FINISHED) {
       currentGame = 'game' + String(gameNumber + 1)
-      console.log(currentGame, games)
       games[currentGame].status = gameStatus.STARTED
     }
     if (games[currentGame].status === gameStatus.FINISHED) {
@@ -201,7 +200,7 @@ const wimblecode = () => {
           games[currentGame].player2.points = 0
           games[currentGame].player1.points = 0
 
-          console.log(checkVictory(games, currentGame))
+          checkVictory(games, currentGame)
         }
       }
     } else {
@@ -250,19 +249,19 @@ try {
   const game = wimblecode()
   game.createMatch('Player 1', 'Player 2')
   game.createMatch('Player 3', 'Player 4')
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 3'))
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 2')
+  game.pointWonBy('Player 3')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
