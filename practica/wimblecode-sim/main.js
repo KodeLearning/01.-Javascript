@@ -53,6 +53,7 @@ const wimblecode = () => {
       currentGame = 'game' + String(gameNumber)
     } else {
       const numberFound = currentGame.match(/\d+/g)
+      // ! Esto sería un problema si hay 10 o más partidos
       gameNumber = Number(numberFound[0])
     }
     if (games[currentGame].status === gameStatus.WAITING) {
@@ -76,17 +77,25 @@ const wimblecode = () => {
       } else if (games[currentGame].player1.points === 30) {
         games[currentGame].player1.points += 10
         if (games[currentGame].player2.points < 30) {
-          games[currentGame].player1.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player1.rounds += 1
+          games[currentGame].player1.points = 0
+          games[currentGame].player2.points = 0
+          /*games[currentGame].player1.status = playerStatus.WINNER
           games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         } else {
           games[currentGame].player1.status = playerStatus.DEUCE
         }
       } else if (games[currentGame].player1.points === 40) {
         if (games[currentGame].player2.points <= 30) {
-          games[currentGame].player1.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player1.rounds += 1
+          games[currentGame].player1.points = 0
+          games[currentGame].player2.points = 0
+          /*games[currentGame].player1.status = playerStatus.WINNER
           games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         } else if (games[currentGame].player2.points === 40) {
           games[currentGame].player1.points += 1
           games[currentGame].player1.status = playerStatus.ADVANTAGE
@@ -102,9 +111,13 @@ const wimblecode = () => {
           games[currentGame].player2.status = playerStatus.DEUCE
         }
         if (games[currentGame].player1.points === 46) {
-          games[currentGame].player1.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player1.rounds += 1
+          games[currentGame].player1.points = 0
+          games[currentGame].player2.points = 0
+          /*games[currentGame].player1.status = playerStatus.WINNER
           games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         }
         if (
           games[currentGame].player1.points > games[currentGame].player2.points &&
@@ -113,9 +126,13 @@ const wimblecode = () => {
           games[currentGame].player1.status = playerStatus.ADVANTAGE
         }
         if (games[currentGame].player1.points - games[currentGame].player2.points === 2) {
-          games[currentGame].player1.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player1.rounds += 1
+          games[currentGame].player1.points = 0
+          games[currentGame].player2.points = 0
+          /*games[currentGame].player1.status = playerStatus.WINNER
           games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         }
       }
     } else if (games[currentGame].player2.name === playerName) {
@@ -124,17 +141,25 @@ const wimblecode = () => {
       } else if (games[currentGame].player2.points === 30) {
         games[currentGame].player2.points += 10
         if (games[currentGame].player1.points < 30) {
-          games[currentGame].player2.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player2.rounds += 1
+          games[currentGame].player2.points = 0
+          games[currentGame].player1.points = 0
+          /*games[currentGame].player2.status = playerStatus.WINNER
           games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         } else {
           games[currentGame].player2.status = playerStatus.DEUCE
         }
       } else if (games[currentGame].player2.points === 40) {
         if (games[currentGame].player1.points <= 30) {
-          games[currentGame].player2.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player2.rounds += 1
+          games[currentGame].player2.points = 0
+          games[currentGame].player1.points = 0
+          /*games[currentGame].player2.status = playerStatus.WINNER
           games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         } else if (games[currentGame].player1.points === 40) {
           games[currentGame].player2.points += 1
           games[currentGame].player2.status = playerStatus.ADVANTAGE
@@ -150,9 +175,13 @@ const wimblecode = () => {
           games[currentGame].player1.status = playerStatus.DEUCE
         }
         if (games[currentGame].player2.points === 46) {
-          games[currentGame].player2.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player2.rounds += 1
+          games[currentGame].player2.points = 0
+          games[currentGame].player1.points = 0
+          /*games[currentGame].player2.status = playerStatus.WINNER
           games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         }
         if (
           games[currentGame].player2.points > games[currentGame].player1.points &&
@@ -161,9 +190,13 @@ const wimblecode = () => {
           games[currentGame].player2.status = playerStatus.ADVANTAGE
         }
         if (games[currentGame].player2.points - games[currentGame].player1.points === 2) {
-          games[currentGame].player2.status = playerStatus.WINNER
+          // Gana la ronda
+          games[currentGame].player2.rounds += 1
+          games[currentGame].player2.points = 0
+          games[currentGame].player1.points = 0
+          /*games[currentGame].player2.status = playerStatus.WINNER
           games[currentGame].player1.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED
+          games[currentGame].status = gameStatus.FINISHED*/
         }
       }
     } else {
