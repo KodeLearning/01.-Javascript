@@ -57,7 +57,6 @@ const wimblecode = () => {
    * TODO: Separar la función de ganar/perder en otra función
    */
 
-  // TODO: Falta cambiar las victorias "por puntos" a "por rondas"
   const pointWonBy = (playerName) => {
     const games = players[0]
     let gameNumber = 1
