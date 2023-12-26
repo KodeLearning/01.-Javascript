@@ -1,3 +1,4 @@
+// TODO: Separar código en más funciones. Quizás en modulos tambien?
 let players = []
 
 const playerStatus = {
@@ -37,18 +38,23 @@ const wimblecode = () => {
     return players
   }
 
+  /**
+   * ! Esta función se encarga de dar puntos a un jugador
+   * ! pero también esta encargandose de decidir un ganador.
+   *
+   * TODO: Separar la función de ganar/perder en otra función
+   */
   const pointWonBy = (playerName) => {
     const games = players[0]
     let currentGame = ''
-    if (games.game1.status === gameStatus.WAITING) {
+
+    if (games.game1.status === gameStatus.WAITING || games.game1.status === gameStatus.STARTED) {
+      currentGame = 'game1'
       games.game1.status = gameStatus.STARTED
-      currentGame = 'game1'
-    } else if (games.game1.status === gameStatus.STARTED) {
-      currentGame = 'game1'
     } else {
       currentGame = 'game2'
+      games.game1.status = gameStatus.STARTED
     }
-    console.log('a', currentGame)
     if (games[currentGame].status === gameStatus.FINISHED) {
       return new Error('Ya hay un ganador en este partido.')
     }
@@ -57,28 +63,24 @@ const wimblecode = () => {
       games[currentGame].player2.status = playerStatus.PLAYING
     }
 
-    if (
-      games[currentGame].status === gameStatus.STARTED &&
-      games[currentGame].player1.name === playerName
-    ) {
+    if (games[currentGame].player1.name === playerName) {
       if (games[currentGame].player1.points < 30) {
         games[currentGame].player1.points += 15
       } else if (games[currentGame].player1.points === 30) {
         games[currentGame].player1.points += 10
         games[currentGame].player1.status = playerStatus.DEUCE
       } else if (games[currentGame].player1.points === 40) {
-        games[currentGame].player1.points += 1
-
         if (games[currentGame].player2.points <= 30) {
           games[currentGame].player1.status = playerStatus.WINNER
           games[currentGame].player2.status = playerStatus.LOSER
           games[currentGame].status = gameStatus.FINISHED
         } else if (games[currentGame].player2.points === 40) {
+          games[currentGame].player1.points += 1
           games[currentGame].player1.status = playerStatus.ADVANTAGE
         }
       } else if (games[currentGame].player1.points > 40 && games[currentGame].player1.points < 47) {
-        games[currentGame].player1.points += 1
-        if (games[currentGame].player1.points === 47) {
+        games[currentGame].player2.points += 1
+        if (games[currentGame].player1.points === 46) {
           games[currentGame].player1.status = playerStatus.WINNER
           games[currentGame].player2.status = playerStatus.LOSER
           games[currentGame].status = gameStatus.FINISHED
@@ -89,30 +91,30 @@ const wimblecode = () => {
         ) {
           games[currentGame].player1.status = playerStatus.ADVANTAGE
         }
-        if (games[currentGame].player2.points - games[currentGame].player1.points === 2) {
-          games[currentGame].player2.status = playerStatus.WINNER
-          games[currentGame].player1.status = playerStatus.LOSER
+        if (games[currentGame].player1.points - games[currentGame].player2.points === 2) {
+          games[currentGame].player1.status = playerStatus.WINNER
+          games[currentGame].player2.status = playerStatus.LOSER
           games[currentGame].status = gameStatus.FINISHED
         }
       }
     }
 
     if (games[currentGame].player2.name === playerName) {
-      console.log('Here')
       if (games[currentGame].player2.points < 30) {
         games[currentGame].player2.points += 15
       } else if (games[currentGame].player2.points === 30) {
         games[currentGame].player2.points += 10
         games[currentGame].player2.status = playerStatus.DEUCE
       } else if (games[currentGame].player2.points === 40) {
-        games[currentGame].player2.points += 1
-
-        if (games[currentGame].player1.points <= 30) {
+        if (games[currentGame].player1.points < 30) {
           games[currentGame].player2.status = playerStatus.WINNER
           games[currentGame].player1.status = playerStatus.LOSER
           games[currentGame].status = gameStatus.FINISHED
-        } else if (games[currentGame].player1.points === 40) {
-          games[currentGame].player2.status = playerStatus.ADVANTAGE
+        } else if (games[currentGame].player1.points >= 40) {
+          if (games[currentGame].player2.points > games[currentGame].player1.points) {
+            games[currentGame].player2.points += 1
+            games[currentGame].player2.status = playerStatus.ADVANTAGE
+          }
         }
       } else if (games[currentGame].player2.points > 40 && games[currentGame].player2.points < 47) {
         games[currentGame].player2.points += 1
@@ -155,6 +157,11 @@ try {
   game.createMatch('Player 3', 'Player 4')
   console.log(game.pointWonBy('Player 2'))
   console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 1'))
+  console.log(game.pointWonBy('Player 1'))
+  console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 1'))
+  console.log(game.pointWonBy('Player 1'))
   console.log(game.pointWonBy('Player 2'))
   console.log(game.pointWonBy('Player 2'))
 } catch (e) {
