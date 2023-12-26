@@ -189,7 +189,24 @@ const wimblecode = () => {
 
     return currentRoundScore
   }
-  const getRoundsScore = () => {}
+  const getRoundsScore = () => {
+    const games = players[0]
+    let roundScore
+    for (const game in games) {
+      if (games[game].status === 'started') {
+        roundScore =
+          games[game].player1.name +
+          ' ' +
+          games[game].player1.rounds +
+          ' - ' +
+          games[game].player2.rounds +
+          ' ' +
+          games[game].player2.name
+      }
+    }
+
+    return roundScore
+  }
 
   return {
     createMatch, // Inicializa dos jugadores que van a competir
@@ -212,6 +229,7 @@ try {
   game.createMatch('Player 2', 'Player 3')
   console.log(game.pointWonBy('Player 3'))
   console.log('currentRoundScore', game.getCurrentRoundScore())
+  console.log('roundScore', game.getRoundsScore())
 } catch (e) {
   console.log(e)
 }
