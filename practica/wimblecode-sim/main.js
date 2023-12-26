@@ -212,13 +212,7 @@ const wimblecode = () => {
     for (const game in games) {
       if (games[game].status === 'started') {
         currentRoundScore =
-          games[game].player1.name +
-          ' ' +
-          games[game].player1.points +
-          ' - ' +
-          games[game].player2.points +
-          ' ' +
-          games[game].player2.name
+          games[game].player1.name + ' ' + games[game].player1.points + ' - ' + games[game].player2.points + ' ' + games[game].player2.name
       }
     }
 
@@ -230,13 +224,7 @@ const wimblecode = () => {
     for (const game in games) {
       if (games[game].status === 'started') {
         roundScore =
-          games[game].player1.name +
-          ' ' +
-          games[game].player1.rounds +
-          ' - ' +
-          games[game].player2.rounds +
-          ' ' +
-          games[game].player2.name
+          games[game].player1.name + ' ' + games[game].player1.rounds + ' - ' + games[game].player2.rounds + ' ' + games[game].player2.name
       }
     }
 
@@ -257,12 +245,8 @@ try {
   game.createMatch('Player 3', 'Player 4')
   console.log(game.pointWonBy('Player 2'))
   console.log(game.pointWonBy('Player 2'))
+  console.log(game.pointWonBy('Player 1'))
   console.log(game.pointWonBy('Player 2'))
-  console.log(game.pointWonBy('Player 3'))
-  console.log(game.pointWonBy('Player 3'))
-  console.log(game.pointWonBy('Player 3'))
-  game.createMatch('Player 2', 'Player 3')
-  console.log(game.pointWonBy('Player 3'))
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
