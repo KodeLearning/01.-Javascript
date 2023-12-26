@@ -94,9 +94,8 @@ const wimblecode = () => {
           games[currentGame].player1.rounds += 1
           games[currentGame].player1.points = 0
           games[currentGame].player2.points = 0
-          /*games[currentGame].player1.status = playerStatus.WINNER
-          games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         } else {
           games[currentGame].player1.status = playerStatus.DEUCE
         }
@@ -106,9 +105,8 @@ const wimblecode = () => {
           games[currentGame].player1.rounds += 1
           games[currentGame].player1.points = 0
           games[currentGame].player2.points = 0
-          /*games[currentGame].player1.status = playerStatus.WINNER
-          games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         } else if (games[currentGame].player2.points === 40) {
           games[currentGame].player1.points += 1
           games[currentGame].player1.status = playerStatus.ADVANTAGE
@@ -128,9 +126,8 @@ const wimblecode = () => {
           games[currentGame].player1.rounds += 1
           games[currentGame].player1.points = 0
           games[currentGame].player2.points = 0
-          /*games[currentGame].player1.status = playerStatus.WINNER
-          games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         }
         if (
           games[currentGame].player1.points > games[currentGame].player2.points &&
@@ -143,9 +140,8 @@ const wimblecode = () => {
           games[currentGame].player1.rounds += 1
           games[currentGame].player1.points = 0
           games[currentGame].player2.points = 0
-          /*games[currentGame].player1.status = playerStatus.WINNER
-          games[currentGame].player2.status = playerStatus.LOSER
-          games[currentGame].status = gameStatus.FINISHED*/
+
+          checkVictory(games, currentGame)
         }
       }
     } else if (games[currentGame].player2.name === playerName) {
