@@ -79,7 +79,6 @@ const wimblecode = () => {
     }
   }
 
-  // TODO: Falta cambiar las victorias "por puntos" a "por rondas"
   const pointWonBy = (playerName) => {
     const games = players[0]
     
