@@ -36,6 +36,10 @@ const wimblecode = () => {
     return players
   }
 
+  const handleDeuce = (player1, player2) => {
+
+  }
+
   const checkVictory = (games, currentGame) => {
     let victory = false
     const diffRounds = games[currentGame].player2.rounds - games[currentGame].player1.rounds
@@ -49,6 +53,15 @@ const wimblecode = () => {
     return victory
   }
 
+  const winRound = (gamesList, winner, loser, currentGame) => {
+    // Gana la ronda
+    winner.rounds += 1
+    winner.points = 0
+    loser.points = 0
+
+    checkVictory(gamesList, currentGame)
+  }
+
   /**
    * ! Esta función se encarga de dar puntos a un jugador pero:
    * ! 1. Esta gestionando victorias
@@ -57,150 +70,120 @@ const wimblecode = () => {
    * TODO: Separar la función de ganar/perder en otra función
    */
 
-  // TODO: Falta cambiar las victorias "por puntos" a "por rondas"
-  const pointWonBy = (playerName) => {
-    const games = players[0]
+  const selectCurrentGame = (gamesList) => {
     let gameNumber = 1
 
-    if (games[currentGame] === undefined) {
+    if (gamesList[currentGame] === undefined) {
       currentGame = 'game' + String(gameNumber)
     } else {
       const numberFound = currentGame.match(/\d+/g)
       // ! Esto sería un problema si hay 10 o más partidos
       gameNumber = Number(numberFound[0])
     }
-    if (games[currentGame].status === gameStatus.WAITING) {
-      games[currentGame].status = gameStatus.STARTED
-    } else if (games[currentGame].status === gameStatus.FINISHED) {
+    if (gamesList[currentGame].status === gameStatus.WAITING) {
+      gamesList[currentGame].status = gameStatus.STARTED
+    } else if (gamesList[currentGame].status === gameStatus.FINISHED) {
       currentGame = 'game' + String(gameNumber + 1)
-      games[currentGame].status = gameStatus.STARTED
+      gamesList[currentGame].status = gameStatus.STARTED
     }
-    if (games[currentGame].status === gameStatus.FINISHED) {
+    if (gamesList[currentGame].status === gameStatus.FINISHED) {
       return new Error('Ya hay un ganador en este partido.')
     }
+  }
+
+  // TODO: Falta cambiar las victorias "por puntos" a "por rondas"
+  const pointWonBy = (playerName) => {
+    const games = players[0]
+    
+    selectCurrentGame(games)
+    
     if (games[currentGame].player1.status === playerStatus.WAITING) {
       games[currentGame].player1.status = playerStatus.PLAYING
       games[currentGame].player2.status = playerStatus.PLAYING
     }
+    
+    
+    const player1 = games[currentGame].player1
+    const player2 = games[currentGame].player2
 
-    if (games[currentGame].player1.name === playerName) {
-      if (games[currentGame].player1.points < 30) {
-        games[currentGame].player1.points += 15
-      } else if (games[currentGame].player1.points === 30) {
-        games[currentGame].player1.points += 10
-        if (games[currentGame].player2.points < 30) {
-          // Gana la ronda
-          games[currentGame].player1.rounds += 1
-          games[currentGame].player1.points = 0
-          games[currentGame].player2.points = 0
-
-          checkVictory(games, currentGame)
+    if (player1.name === playerName) {
+      if (player1.points < 30) {
+        player1.points += 15
+      } else if (player1.points === 30) {
+        player1.points += 10
+        if (player2.points < 30) {
+          winRound(games, player1, player2, currentGame)
         } else {
-          games[currentGame].player1.status = playerStatus.DEUCE
+          player1.status = playerStatus.DEUCE
         }
-      } else if (games[currentGame].player1.points === 40) {
-        if (games[currentGame].player2.points <= 30) {
-          // Gana la ronda
-          games[currentGame].player1.rounds += 1
-          games[currentGame].player1.points = 0
-          games[currentGame].player2.points = 0
-
-          checkVictory(games, currentGame)
-        } else if (games[currentGame].player2.points === 40) {
-          games[currentGame].player1.points += 1
-          games[currentGame].player1.status = playerStatus.ADVANTAGE
+      } else if (player1.points === 40) {
+        if (player2.points <= 30) {
+          winRound(games, player1, player2, currentGame)
+        } else if (player2.points === 40) {
+          player1.points += 1
+          player1.status = playerStatus.ADVANTAGE
         }
-      } else if (games[currentGame].player1.points > 40 && games[currentGame].player1.points < 47) {
-        games[currentGame].player2.points += 1
-        if (games[currentGame].player1.points === games[currentGame].player2.points) {
-          games[currentGame].player1.points += 1
-          games[currentGame].player1.status = playerStatus.ADVANTAGE
-        } else if (games[currentGame].player1.points < games[currentGame].player2.points) {
-          games[currentGame].player1.points += 1
-          games[currentGame].player1.status = playerStatus.DEUCE
-          games[currentGame].player2.status = playerStatus.DEUCE
+      } else if (player1.points > 40 && player1.points < 47) {
+        player2.points += 1
+        if (player1.points === player2.points) {
+          player1.points += 1
+          player1.status = playerStatus.ADVANTAGE
+        } else if (player1.points < player2.points) {
+          player1.points += 1
+          player1.status = playerStatus.DEUCE
+          player2.status = playerStatus.DEUCE
         }
-        if (games[currentGame].player1.points === 46) {
-          // Gana la ronda
-          games[currentGame].player1.rounds += 1
-          games[currentGame].player1.points = 0
-          games[currentGame].player2.points = 0
-
-          checkVictory(games, currentGame)
+        if (player1.points === 46) {
+          winRound(games, player1, player2, currentGame)
         }
         if (
-          games[currentGame].player1.points > games[currentGame].player2.points &&
-          !games[currentGame].player1.points - games[currentGame].player2.points === 2
+          player1.points > player2.points &&
+          !player1.points - player2.points === 2
         ) {
-          games[currentGame].player1.status = playerStatus.ADVANTAGE
+          player1.status = playerStatus.ADVANTAGE
         }
-        if (games[currentGame].player1.points - games[currentGame].player2.points === 2) {
-          // Gana la ronda
-          games[currentGame].player1.rounds += 1
-          games[currentGame].player1.points = 0
-          games[currentGame].player2.points = 0
-
-          checkVictory(games, currentGame)
+        if (player1.points - player2.points === 2) {
+          winRound(games, player1, player2, currentGame)
         }
       }
-    } else if (games[currentGame].player2.name === playerName) {
-      if (games[currentGame].player2.points < 30) {
-        games[currentGame].player2.points += 15
-      } else if (games[currentGame].player2.points === 30) {
-        games[currentGame].player2.points += 10
-        if (games[currentGame].player1.points < 30) {
-          // Gana la ronda
-          games[currentGame].player2.rounds += 1
-          games[currentGame].player2.points = 0
-          games[currentGame].player1.points = 0
-
-          checkVictory(games, currentGame)
+    } else if (player2.name === playerName) {
+      if (player2.points < 30) {
+        player2.points += 15
+      } else if (player2.points === 30) {
+        player2.points += 10
+        if (player1.points < 30) {
+          winRound(games, player2, player1, currentGame)
         } else {
-          games[currentGame].player2.status = playerStatus.DEUCE
+          player2.status = playerStatus.DEUCE
         }
-      } else if (games[currentGame].player2.points === 40) {
-        if (games[currentGame].player1.points <= 30) {
-          // Gana la ronda
-          games[currentGame].player2.rounds += 1
-          games[currentGame].player2.points = 0
-          games[currentGame].player1.points = 0
-
-          checkVictory(games, currentGame)
-        } else if (games[currentGame].player1.points === 40) {
-          games[currentGame].player2.points += 1
-          games[currentGame].player2.status = playerStatus.ADVANTAGE
+      } else if (player2.points === 40) {
+        if (player1.points <= 30) {
+          winRound(games, player2, player1, currentGame)
+        } else if (player1.points === 40) {
+          player2.points += 1
+          player2.status = playerStatus.ADVANTAGE
         }
-      } else if (games[currentGame].player2.points > 40 && games[currentGame].player2.points < 47) {
-        games[currentGame].player1.points += 1
-        if (games[currentGame].player2.points === games[currentGame].player1.points) {
-          games[currentGame].player2.points += 1
-          games[currentGame].player2.status = playerStatus.ADVANTAGE
-        } else if (games[currentGame].player2.points < games[currentGame].player1.points) {
-          games[currentGame].player2.points += 1
-          games[currentGame].player2.status = playerStatus.DEUCE
-          games[currentGame].player1.status = playerStatus.DEUCE
+      } else if (player2.points > 40 && player2.points < 47) {
+        player1.points += 1
+        if (player2.points === player1.points) {
+          player2.points += 1
+          player2.status = playerStatus.ADVANTAGE
+        } else if (player2.points < player1.points) {
+          player2.points += 1
+          player2.status = playerStatus.DEUCE
+          player1.status = playerStatus.DEUCE
         }
-        if (games[currentGame].player2.points === 46) {
-          // Gana la ronda
-          games[currentGame].player2.rounds += 1
-          games[currentGame].player2.points = 0
-          games[currentGame].player1.points = 0
-
-          checkVictory(games, currentGame)
+        if (player2.points === 46) {
+          winRound(games, player2, player1, currentGame)
         }
         if (
-          games[currentGame].player2.points > games[currentGame].player1.points &&
-          !games[currentGame].player2.points - games[currentGame].player1.points === 2
+          player2.points > player1.points &&
+          !player2.points - player1.points === 2
         ) {
-          games[currentGame].player2.status = playerStatus.ADVANTAGE
+          player2.status = playerStatus.ADVANTAGE
         }
-        if (games[currentGame].player2.points - games[currentGame].player1.points === 2) {
-          // Gana la ronda
-          games[currentGame].player2.rounds += 1
-          games[currentGame].player2.points = 0
-          games[currentGame].player1.points = 0
-
-          checkVictory(games, currentGame)
+        if (player2.points - player1.points === 2) {
+          winRound(games, player2, player1, currentGame)
         }
       }
     } else {
