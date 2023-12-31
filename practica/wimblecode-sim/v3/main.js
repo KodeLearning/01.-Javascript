@@ -1,3 +1,18 @@
+/*************************************************************************
+ * VERSION 3: Wimblecode Simulation                                      *
+ *************************************************************************
+ * Esta tercera versión será una simulación completa.                    *
+ * OBJECTIVOS:                                                           *
+ * 1. Función para iniciar partido                                       *
+ * 2. Modificar pointWonBy() para que de el punto de forma aleatoria.    *
+ * 3. [HTML] Botón para iniciar partido.                                 *
+ * 4. [HTML] Botón para anotar punto (aleatorio).                        *
+ * 5. [HTML] Tabla que informe de quien anotó en cada ronda.             *
+ *************************************************************************
+ * La única razón de separarlo en versiones era por si no me daba tiempo *
+ * ha terminar el refactorizado y se quedaba la práctica a medias.       *
+ ************************************************************************/
+
 import { playerStatus, gameStatus } from './helpers/statusHelper.js'
 
 // TODO: Separar código en más funciones. Quizás en modulos tambien?

@@ -1,4 +1,14 @@
-import { playerStatus, gameStatus, tourneyStatus } from './helpers/statusHelper.js'
+/*************************************************************************
+ * VERSION 2: Wimblecode Simulation                                      *
+ *************************************************************************
+ * Esta segunda version ha sido separada en funciones y modulos.         *
+ * He reducido el código utilizado variables dinámicas.                  *
+ *************************************************************************
+ * La única razón de separarlo en versiones era por si no me daba tiempo *
+ * ha terminar el refactorizado y se quedaba la práctica a medias.       *
+ ************************************************************************/
+
+import { playerStatus, gameStatus } from './helpers/statusHelper.js'
 
 // TODO: Separar código en más funciones. Quizás en modulos tambien?
 let players = []
@@ -159,7 +169,7 @@ const wimblecode = () => {
         currentRoundScore =
           games[game].player1.name + ' ' + games[game].player1.points + ' - ' + games[game].player2.points + ' ' + games[game].player2.name
       } else {
-        currentRoundScore = 'No hay partidos iniciados.'
+        return new Error('No hay partidos iniciados.')
       }
     }
 

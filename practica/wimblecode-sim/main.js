@@ -1,3 +1,13 @@
+/*************************************************************************
+ * VERSION 1: Wimblecode Simulation                                      *
+ *************************************************************************
+ * Esta primera versión ha sido mayormente hardcodeada,                  *
+ * es la primera idea que se me ocurrió y lo primero que empecé a hacer. *
+ *************************************************************************
+ * La única razón de separarlo en versiones era por si no me daba tiempo *
+ * ha terminar el refactorizado y se quedaba la práctica a medias.       *
+ ************************************************************************/
+
 // TODO: Separar código en más funciones. Quizás en modulos tambien?
 let players = []
 let currentGame = ''
