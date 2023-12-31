@@ -58,7 +58,7 @@ const wimblecode = () => {
    * TODO: Separar la función de ganar/perder en otra función
    */
 
-  const selectCurrentGame = (gamesList) => {
+  const setupGame = (gamesList) => {
     let gameNumber = 1
 
     if (gamesList[currentGame] === undefined) {
@@ -77,104 +77,69 @@ const wimblecode = () => {
     if (gamesList[currentGame].status === gameStatus.FINISHED) {
       return new Error('Ya hay un ganador en este partido.')
     }
+
+    if (gamesList[currentGame].player1.status === playerStatus.WAITING) {
+      gamesList[currentGame].player1.status = playerStatus.PLAYING
+      gamesList[currentGame].player2.status = playerStatus.PLAYING
+    }
+  }
+
+  const getCurrentPlayer = (playerName, homePlayer, visitorPlayer) => {
+    console.log(playerName, homePlayer.name, visitorPlayer.name)
+    return homePlayer.name === playerName ? homePlayer :
+            visitorPlayer.name === playerName ? visitorPlayer : null
   }
 
   const pointWonBy = (playerName) => {
     const games = players[0]
-    
-    selectCurrentGame(games)
-    
-    if (games[currentGame].player1.status === playerStatus.WAITING) {
-      games[currentGame].player1.status = playerStatus.PLAYING
-      games[currentGame].player2.status = playerStatus.PLAYING
-    }
-    
-    
-    const player1 = games[currentGame].player1
-    const player2 = games[currentGame].player2
+    setupGame(games)
 
-    if (player1.name === playerName) {
-      if (player1.points < 30) {
-        player1.points += 15
-      } else if (player1.points === 30) {
-        player1.points += 10
-        if (player2.points < 30) {
-          winRound(games, player1, player2, currentGame)
-        } else {
-          player1.status = playerStatus.DEUCE
-        }
-      } else if (player1.points === 40) {
-        if (player2.points <= 30) {
-          winRound(games, player1, player2, currentGame)
-        } else if (player2.points === 40) {
-          player1.points += 1
-          player1.status = playerStatus.ADVANTAGE
-        }
-      } else if (player1.points > 40 && player1.points < 47) {
-        player2.points += 1
-        if (player1.points === player2.points) {
-          player1.points += 1
-          player1.status = playerStatus.ADVANTAGE
-        } else if (player1.points < player2.points) {
-          player1.points += 1
-          player1.status = playerStatus.DEUCE
-          player2.status = playerStatus.DEUCE
-        }
-        if (player1.points === 46) {
-          winRound(games, player1, player2, currentGame)
-        }
-        if (
-          player1.points > player2.points &&
-          !player1.points - player2.points === 2
-        ) {
-          player1.status = playerStatus.ADVANTAGE
-        }
-        if (player1.points - player2.points === 2) {
-          winRound(games, player1, player2, currentGame)
-        }
-      }
-    } else if (player2.name === playerName) {
-      if (player2.points < 30) {
-        player2.points += 15
-      } else if (player2.points === 30) {
-        player2.points += 10
-        if (player1.points < 30) {
-          winRound(games, player2, player1, currentGame)
-        } else {
-          player2.status = playerStatus.DEUCE
-        }
-      } else if (player2.points === 40) {
-        if (player1.points <= 30) {
-          winRound(games, player2, player1, currentGame)
-        } else if (player1.points === 40) {
-          player2.points += 1
-          player2.status = playerStatus.ADVANTAGE
-        }
-      } else if (player2.points > 40 && player2.points < 47) {
-        player1.points += 1
-        if (player2.points === player1.points) {
-          player2.points += 1
-          player2.status = playerStatus.ADVANTAGE
-        } else if (player2.points < player1.points) {
-          player2.points += 1
-          player2.status = playerStatus.DEUCE
-          player1.status = playerStatus.DEUCE
-        }
-        if (player2.points === 46) {
-          winRound(games, player2, player1, currentGame)
-        }
-        if (
-          player2.points > player1.points &&
-          !player2.points - player1.points === 2
-        ) {
-          player2.status = playerStatus.ADVANTAGE
-        }
-        if (player2.points - player1.points === 2) {
-          winRound(games, player2, player1, currentGame)
+    const homePlayer = games[currentGame].player1
+    const visitorPlayer = games[currentGame].player2
+    const player = getCurrentPlayer(playerName, homePlayer, visitorPlayer)
+
+    for (let i = 0; i < Object.keys(games[currentGame]).length; i++) {
+      if(player.name === playerName) {
+        if (player.points < 30) {
+          player.points += 15
+        } else if (player.points === 30) {
+          player.points += 10
+          if (visitorPlayer.points < 30) {
+            winRound(games, homePlayer, visitorPlayer, currentGame)
+          } else {
+            player.status = playerStatus.DEUCE
+          }
+        } else if (player.points === 40) {
+          if (visitorPlayer.points <= 30) {
+            winRound(games, homePlayer, visitorPlayer, currentGame)
+          } else if (visitorPlayer.points === 40) {
+            player.points += 1
+            player.status = playerStatus.ADVANTAGE
+          }
+        } else if (player.points > 40 && player.points < 47) {
+          visitorPlayer.points += 1
+          if (player.points === visitorPlayer.points) {
+            player.points += 1
+            player.status = playerStatus.ADVANTAGE
+          } else if (player.points < visitorPlayer.points) {
+            player.points += 1
+            player.status = playerStatus.DEUCE
+            visitorPlayer.status = playerStatus.DEUCE
+          }
+          if (player.points === 46) {
+            winRound(games, homePlayer, visitorPlayer, currentGame)
+          }
+          if (
+            player.points > visitorPlayer.points &&
+            !player.points - visitorPlayer.points === 2
+          ) {
+            player.status = playerStatus.ADVANTAGE
+          }
+          if (player.points - visitorPlayer.points === 2) {
+            winRound(games, homePlayer, visitorPlayer, currentGame)
+          }
         }
       }
-    } else {
-      return new Error(playerName + ' no esta participando.')
     }
 
     return games[currentGame]
@@ -218,7 +183,7 @@ const wimblecode = () => {
 try {
   const game = wimblecode()
   console.log(game.createMatch('Player 1', 'Player 2'))
-  console.log(game.createMatch('Player 3', 'Player 4'))
+  console.log(game.pointWonBy('Player 2'))
   game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
@@ -230,8 +195,6 @@ try {
   game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 3')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
