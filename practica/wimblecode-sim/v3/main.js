@@ -1,4 +1,4 @@
-import { playerStatus, gameStatus, tourneyStatus } from './helpers/statusHelper.js'
+import { playerStatus, gameStatus } from './helpers/statusHelper.js'
 
 // TODO: Separar código en más funciones. Quizás en modulos tambien?
 let players = []
