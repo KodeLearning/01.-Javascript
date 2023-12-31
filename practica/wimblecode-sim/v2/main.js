@@ -84,10 +84,18 @@ const wimblecode = () => {
     }
   }
 
-  const getCurrentPlayer = (playerName, homePlayer, visitorPlayer) => {
-    console.log(playerName, homePlayer.name, visitorPlayer.name)
-    return homePlayer.name === playerName ? homePlayer :
-            visitorPlayer.name === playerName ? visitorPlayer : null
+  const getPlayerByName = (playerName, homePlayer, visitorPlayer) => {
+    let player = {}
+
+    if(homePlayer.name === playerName) {
+      player = homePlayer
+    } else if(visitorPlayer.name === playerName) {
+      player = visitorPlayer
+    } else {
+      return new Error('El jugador introducido no existe.')
+    }
+
+    return player
   }
 
   const pointWonBy = (playerName) => {
@@ -96,49 +104,45 @@ const wimblecode = () => {
 
     const homePlayer = games[currentGame].player1
     const visitorPlayer = games[currentGame].player2
-    const player = getCurrentPlayer(playerName, homePlayer, visitorPlayer)
+    const player = getPlayerByName(playerName, homePlayer, visitorPlayer)
 
-    for (let i = 0; i < Object.keys(games[currentGame]).length; i++) {
-      if(player.name === playerName) {
-        if (player.points < 30) {
-          player.points += 15
-        } else if (player.points === 30) {
-          player.points += 10
-          if (visitorPlayer.points < 30) {
-            winRound(games, homePlayer, visitorPlayer, currentGame)
-          } else {
-            player.status = playerStatus.DEUCE
-          }
-        } else if (player.points === 40) {
-          if (visitorPlayer.points <= 30) {
-            winRound(games, homePlayer, visitorPlayer, currentGame)
-          } else if (visitorPlayer.points === 40) {
-            player.points += 1
-            player.status = playerStatus.ADVANTAGE
-          }
-        } else if (player.points > 40 && player.points < 47) {
-          visitorPlayer.points += 1
-          if (player.points === visitorPlayer.points) {
-            player.points += 1
-            player.status = playerStatus.ADVANTAGE
-          } else if (player.points < visitorPlayer.points) {
-            player.points += 1
-            player.status = playerStatus.DEUCE
-            visitorPlayer.status = playerStatus.DEUCE
-          }
-          if (player.points === 46) {
-            winRound(games, homePlayer, visitorPlayer, currentGame)
-          }
-          if (
-            player.points > visitorPlayer.points &&
-            !player.points - visitorPlayer.points === 2
-          ) {
-            player.status = playerStatus.ADVANTAGE
-          }
-          if (player.points - visitorPlayer.points === 2) {
-            winRound(games, homePlayer, visitorPlayer, currentGame)
-          }
-        }
+    if (player.points < 30) {
+      player.points += 15
+    } else if (player.points === 30) {
+      player.points += 10
+      if (visitorPlayer.points < 30) {
+        winRound(games, homePlayer, visitorPlayer, currentGame)
+      } else {
+        player.status = playerStatus.DEUCE
+      }
+    } else if (player.points === 40) {
+      if (visitorPlayer.points <= 30) {
+        winRound(games, homePlayer, visitorPlayer, currentGame)
+      } else if (visitorPlayer.points === 40) {
+        player.points += 1
+        player.status = playerStatus.ADVANTAGE
+      }
+    } else if (player.points > 40 && player.points < 47) {
+      player.points += 1
+      if (player.points === visitorPlayer.points) {
+        player.points += 1
+        player.status = playerStatus.ADVANTAGE
+      } else if (player.points < visitorPlayer.points) {
+        player.points += 1
+        player.status = playerStatus.DEUCE
+        visitorPlayer.status = playerStatus.DEUCE
+      }
+      if (player.points === 46) {
+        winRound(games, homePlayer, visitorPlayer, currentGame)
+      }
+      if (
+        player.points > visitorPlayer.points &&
+        !player.points - visitorPlayer.points === 2
+      ) {
+        player.status = playerStatus.ADVANTAGE
+      }
+      if (player.points - visitorPlayer.points === 2) {
+        winRound(games, homePlayer, visitorPlayer, currentGame)
       }
     }
 
