@@ -21,9 +21,6 @@ const wimblecode = () => {
           status: 'waiting',
         },
       },
-      {
-        status: 'closed'
-      }
     ]
     return players
   }
@@ -72,6 +69,7 @@ const wimblecode = () => {
       gamesList[currentGame].status = gameStatus.STARTED
     } else if (gamesList[currentGame].status === gameStatus.FINISHED) {
       currentGame = 'game' + String(gameNumber + 1)
+      console.log(gamesList)
       gamesList[currentGame].status = gameStatus.STARTED
     }
     if (gamesList[currentGame].status === gameStatus.FINISHED) {
@@ -86,63 +84,67 @@ const wimblecode = () => {
 
   const getPlayerByName = (playerName, homePlayer, visitorPlayer) => {
     let player = {}
+    let opponent = {}
 
     if(homePlayer.name === playerName) {
       player = homePlayer
+      opponent = visitorPlayer
     } else if(visitorPlayer.name === playerName) {
       player = visitorPlayer
+      opponent = homePlayer
     } else {
       return new Error('El jugador introducido no existe.')
     }
 
-    return player
+    return { player, opponent }
   }
 
   const pointWonBy = (playerName) => {
     const games = players[0]
     setupGame(games)
+    const { player, opponent } = getPlayerByName(playerName, games[currentGame].player1, games[currentGame].player2)
 
-    const homePlayer = games[currentGame].player1
-    const visitorPlayer = games[currentGame].player2
-    const player = getPlayerByName(playerName, homePlayer, visitorPlayer)
+    if(player === undefined) {
+      return new Error('El jugador introducido no existe.')
+    }
 
     if (player.points < 30) {
       player.points += 15
     } else if (player.points === 30) {
       player.points += 10
-      if (visitorPlayer.points < 30) {
-        winRound(games, homePlayer, visitorPlayer, currentGame)
+      if (opponent.points < 30) {
+        winRound(games, player, opponent, currentGame)
       } else {
         player.status = playerStatus.DEUCE
       }
     } else if (player.points === 40) {
-      if (visitorPlayer.points <= 30) {
-        winRound(games, homePlayer, visitorPlayer, currentGame)
-      } else if (visitorPlayer.points === 40) {
+      if (opponent.points <= 30) {
+        winRound(games, player, opponent, currentGame)
+      } else if (opponent.points === 40) {
         player.points += 1
         player.status = playerStatus.ADVANTAGE
       }
     } else if (player.points > 40 && player.points < 47) {
       player.points += 1
-      if (player.points === visitorPlayer.points) {
+      if (player.points === opponent.points) {
         player.points += 1
         player.status = playerStatus.ADVANTAGE
-      } else if (player.points < visitorPlayer.points) {
+      } else if (player.points < opponent.points) {
         player.points += 1
         player.status = playerStatus.DEUCE
-        visitorPlayer.status = playerStatus.DEUCE
+        opponent.status = playerStatus.DEUCE
       }
       if (player.points === 46) {
-        winRound(games, homePlayer, visitorPlayer, currentGame)
+        winRound(games, player, opponent, currentGame)
       }
       if (
-        player.points > visitorPlayer.points &&
-        !player.points - visitorPlayer.points === 2
+        player.points > opponent.points &&
+        !player.points - opponent.points === 2
       ) {
         player.status = playerStatus.ADVANTAGE
       }
-      if (player.points - visitorPlayer.points === 2) {
-        winRound(games, homePlayer, visitorPlayer, currentGame)
+      if (player.points - opponent.points === 2) {
+        winRound(games, player, opponent, currentGame)
       }
     }
 
@@ -187,20 +189,11 @@ const wimblecode = () => {
 try {
   const game = wimblecode()
   console.log(game.createMatch('Player 1', 'Player 2'))
-  console.log(game.pointWonBy('Player 2'))
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
   game.pointWonBy('Player 2')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
-  console.log(e)
+  console.error(e.message)
 }
