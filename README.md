@@ -156,7 +156,7 @@ let miCatalogo = crearCatalogo();
 ```
 
 ## Proyecto Wimblecode
-[Ver proyecto v1](https://github.com/KodeLearning/01.-Javascript/tree/main/practica/wimblecode-sim) | Version 2 [Ver Proyecto v2](https://github.com/KodeLearning/01.-Javascript/tree/main/practica/wimblecode-sim/v2)
+[Ver proyecto](https://github.com/KodeLearning/01.-Javascript/tree/main/practica/wimblecode-sim) | Version 2 [Ver Version 2](https://github.com/KodeLearning/01.-Javascript/tree/main/practica/wimblecode-sim/v2)
 
 Nos acaba de contratar Wimblecode para que desarrollemos un software que registre los
 partidos y el marcador de cada encuentro. Para poder desarrollar este proyecto, nuestro
