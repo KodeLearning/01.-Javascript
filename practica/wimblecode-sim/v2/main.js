@@ -8,7 +8,8 @@
  * ha terminar el refactorizado y se quedaba la práctica a medias.       *
  ************************************************************************/
 
-import { playerStatus, gameStatus } from './helpers/statusHelper.js'
+import { playerStatus, gameStatus } from './helpers/enumStatusHelper.js'
+import { getRandomInt } from './helpers/randomHelper.js'
 
 // TODO: Separar código en más funciones. Quizás en modulos tambien?
 let players = []
@@ -109,9 +110,16 @@ const wimblecode = () => {
     return { player, opponent }
   }
 
+  const getRandomPlayer = (currentGame) => {
+    console.log(typeof currentGame)
+    return (getRandomInt(10) % 2 === 0) ? currentGame.player1 : currentGame.player2
+  }
+
   const pointWonBy = (playerName) => {
     const games = players[0]
     setupGame(games)
+    const randomPlayer = getRandomPlayer(games[currentGame])
+    console.log('a', randomPlayer)
     const { player, opponent } = getPlayerByName(playerName, games[currentGame].player1, games[currentGame].player2)
 
     if(player === undefined) {
