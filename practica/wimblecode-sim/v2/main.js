@@ -154,6 +154,7 @@ const wimblecode = () => {
         player.status = playerStatus.ADVANTAGE
       }
       if (player.points - opponent.points === 2) {
+        console.log('currentRoundScore', getCurrentRoundScore())
         winRound(games, player, opponent, currentGame)
       }
     }
