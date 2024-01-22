@@ -96,10 +96,10 @@ const wimblecode = () => {
     let player = {}
     let opponent = {}
 
-    if(homePlayer.name === playerName) {
+    if (homePlayer.name === playerName) {
       player = homePlayer
       opponent = visitorPlayer
-    } else if(visitorPlayer.name === playerName) {
+    } else if (visitorPlayer.name === playerName) {
       player = visitorPlayer
       opponent = homePlayer
     } else {
@@ -114,7 +114,7 @@ const wimblecode = () => {
     setupGame(games)
     const { player, opponent } = getPlayerByName(playerName, games[currentGame].player1, games[currentGame].player2)
 
-    if(player === undefined) {
+    if (player === undefined) {
       return new Error('El jugador introducido no existe.')
     }
 
@@ -133,6 +133,9 @@ const wimblecode = () => {
       } else if (opponent.points === 40) {
         player.points += 1
         player.status = playerStatus.ADVANTAGE
+      } else {
+        player.points += 1
+        player.status = playerStatus.DEUCE
       }
     } else if (player.points > 40 && player.points < 47) {
       player.points += 1
@@ -147,17 +150,13 @@ const wimblecode = () => {
       if (player.points === 46) {
         winRound(games, player, opponent, currentGame)
       }
-      if (
-        player.points > opponent.points &&
-        !player.points - opponent.points === 2
-      ) {
+      if (player.points > opponent.points && !player.points - opponent.points === 2) {
         player.status = playerStatus.ADVANTAGE
       }
       if (player.points - opponent.points === 2) {
         winRound(games, player, opponent, currentGame)
       }
     }
-
     return games[currentGame]
   }
 
@@ -198,10 +197,29 @@ const wimblecode = () => {
 
 try {
   const game = wimblecode()
-  console.log(game.createMatch('Player 1', 'Player 2'))
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
-  game.pointWonBy('Player 2')
+  console.log(game.createMatch('Alberto C', 'David J'))
+  game.pointWonBy('Alberto C')
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('Alberto C')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('Alberto C')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('Alberto C')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
