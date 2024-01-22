@@ -51,6 +51,7 @@ const wimblecode = () => {
   const winRound = (gamesList, winner, loser, currentGame) => {
     // Gana la ronda
     console.log('currentRoundScore', getCurrentRoundScore())
+    console.log('getRoundsScore', getRoundsScore())
     winner.rounds += 1
     winner.points = 0
     loser.points = 0
