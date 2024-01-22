@@ -237,6 +237,10 @@ try {
   game.pointWonBy('David J')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   game.pointWonBy('David J')
+  /**
+   * El puntaje final se muestra automaticamente por lo que estas siguientes
+   * lineas devolverían un error informando de que ya no hay partidos activos.
+   **/
   console.log('currentRoundScore', game.getCurrentRoundScore())
   console.log('roundScore', game.getRoundsScore())
 } catch (e) {
