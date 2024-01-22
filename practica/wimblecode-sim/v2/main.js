@@ -50,10 +50,10 @@ const wimblecode = () => {
 
   const winRound = (gamesList, winner, loser, currentGame) => {
     // Gana la ronda
+    console.log('currentRoundScore', getCurrentRoundScore())
     winner.rounds += 1
     winner.points = 0
     loser.points = 0
-
     checkVictory(gamesList, currentGame)
   }
 
@@ -154,10 +154,10 @@ const wimblecode = () => {
         player.status = playerStatus.ADVANTAGE
       }
       if (player.points - opponent.points === 2) {
-        console.log('currentRoundScore', getCurrentRoundScore())
         winRound(games, player, opponent, currentGame)
       }
     }
+    console.log(games[currentGame])
     return games[currentGame]
   }
 
@@ -169,7 +169,7 @@ const wimblecode = () => {
         currentRoundScore =
           games[game].player1.name + ' ' + games[game].player1.points + ' - ' + games[game].player2.points + ' ' + games[game].player2.name
       } else {
-        return new Error('No hay partidos iniciados.')
+        return new Error('Esperando a que inicie un partido.')
       }
     }
 
@@ -182,6 +182,8 @@ const wimblecode = () => {
       if (games[game].status === 'started') {
         roundScore =
           games[game].player1.name + ' ' + games[game].player1.rounds + ' - ' + games[game].player2.rounds + ' ' + games[game].player2.name
+      } else {
+        return new Error('No hay un partido activo.')
       }
     }
 
@@ -211,6 +213,20 @@ try {
   game.pointWonBy('David J')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   game.pointWonBy('Alberto C')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
+  console.log('currentRoundScore', game.getCurrentRoundScore())
+  game.pointWonBy('David J')
   console.log('currentRoundScore', game.getCurrentRoundScore())
   game.pointWonBy('David J')
   console.log('currentRoundScore', game.getCurrentRoundScore())
