@@ -157,7 +157,6 @@ const wimblecode = () => {
         winRound(games, player, opponent, currentGame)
       }
     }
-    console.log(games[currentGame])
     return games[currentGame]
   }
 
